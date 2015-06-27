@@ -7,7 +7,7 @@
 class Grade:
 
     def __init__(self, g):
-        self.origGrade = int(g)
+        self.origGrade = g
 
     def setCurvedGrade(self, g):
         self.curvedGrade = g

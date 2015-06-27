@@ -5,6 +5,7 @@
 '''
 
 from Grade import Grade
+from Window import Window
 
 # list of grade objects
 gradesList = []
@@ -44,8 +45,11 @@ def calc():
     for g in gradesList:
         g.setCurvedGrade(g.getOrigGrade() + incGrade)
 
+    writeCurvedGrades()
+
     display()
 
+# process the provided grades txt file
 def process():
 
     origGradesFile = open("grades.txt")
@@ -57,21 +61,35 @@ def process():
 
     origGradesFile.close()
 
+# check if grades.txt has been read already
 def isProcessed():
     return False
 
+# write the calculated curved grades to a txt file
+def writeCurvedGrades():
+
+    # open curved grades txt, create if it doesn't exist
+    curvedGradesFile = open("grades_curved.txt", "w")
+
+    for g in gradesList:
+        curvedGradesFile.write(str(g.getCurvedGrade())+"\n")
+    
+
+# display original grades (pre curve)
 def displayOrigGrades():
 
     print("Original grades:")
     for g in gradesList:
         print(g.getOrigGrade())
 
+# display curved grades
 def displayCurvedGrades():
 
     print("Curved grades:")
     for g in gradesList:
         print(g.getCurvedGrade())
 
+# display original and curved grades
 def display():
     displayOrigGrades()
     displayCurvedGrades()
@@ -90,6 +108,8 @@ def loop():
             calc()
         elif command == "display":
             display()
+        elif command == "exit":
+            break
 
 # begin execution of the application
 start()

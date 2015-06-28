@@ -4,8 +4,10 @@
     Date created: 6/27/2015
 '''
 
+# represents a list of grades and relevant statistics
 class GradesSet:
 
+    # initialize
     def __init__(self, l):
         self.gradesList = l
         self.origMean = None
@@ -13,9 +15,23 @@ class GradesSet:
         self.origStdDev = None
         self.curvedStdDev = None
 
+    # getters
     def getGradesList(self):
         return self.gradesList
 
+    def getOrigMean(self):
+        return self.origMean
+
+    def getCurvedMean(self):
+        return self.curvedMean
+
+    def getOrigStdDev(self):
+        return self.origStdDev
+
+    def getCurvedStdDev(self):
+        return self.curvedStdDev
+
+    # setters
     def setGradesList(self, gl):
         self.gradesList = gl
 
@@ -31,14 +47,4 @@ class GradesSet:
     def setCurvedStdDev(self, sd):
         self.curvedStdDev = sd
 
-    def getOrigMean(self):
-        return self.origMean
-
-    def getCurvedMean(self):
-        return self.curvedMean
-
-    def getOrigStdDev(self):
-        return self.origStdDev
-
-    def getCurvedStdDev(self):
-        return self.curvedStdDev
+    

@@ -27,12 +27,27 @@ def _help():
     print("96\n72\n85\n...")
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
-# calculate curve
-def calc():
+# choose algorithm to curve
+def chooseAlg(gradesSet):
+    print("Which method do you wish to curve with?")
+    print("1: Curve highest grade to 100")
+    print("2: Add x points to everyone's grade")
 
-    gradesSet = None
+    response = input("> ")
 
-    if isProcessed() is False:
+    if response == "exit":
+        return
+    elif response == "1":
+        calc(gradesSet)
+    elif response == "2":
+        print("Please enter the amount of points to add:")
+        numToAdd = input("> ")
+        addCalc(gradesSet, int(numToAdd))
+
+# calculate curve by scaling highest grade to 100
+def calc(gradesSet):
+
+    if isProcessed(gradesSet) is False:
         gradesSet = process()
 
     # curve based on how far highest grade was from 100
@@ -53,6 +68,28 @@ def calc():
     writeCurvedGrades(gradesSet)
 
     display(gradesSet)
+
+    return gradesSet
+
+# calculate curve by adding x to everyone's grade
+def addCalc(gradesSet, x):
+
+    if isProcessed(gradesSet) is False:
+        gradesSet = process()
+
+    # add x points to everyon's grade
+    for g in gradesSet.getGradesList():
+        g.setCurvedGrade(g.getOrigGrade() + x)
+
+    # calculate mean/standard deviations
+    postCalc(gradesSet)
+
+    # write curved grades to txt file
+    writeCurvedGrades(gradesSet)
+
+    display(gradesSet)
+
+    return gradesSet
 
 def postCalc(gradesSet):
 
@@ -102,8 +139,10 @@ def process():
     return GradesSet(gradesList)
 
 # check if grades.txt has been read already
-def isProcessed():
-    return False
+def isProcessed(gradesSet):
+    if gradesSet is None:
+        return False
+    return True
 
 # write the calculated curved grades to a txt file
 def writeCurvedGrades(gradesSet):
@@ -146,10 +185,12 @@ def loop():
         # read in command
         command = input("> ")
 
+        gradesSet = None
+
         if command == "help":
             _help()
         elif command == "calc":
-            calc()
+            gradesSet = chooseAlg(gradesSet)
         elif command == "display":
             display()
         elif command == "exit":
